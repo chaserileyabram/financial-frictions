@@ -17,7 +17,7 @@ b2 = NN(end);                                      % size is 1x1
 
 % Evaluate the NN for the data and calculate the error
 layer_1    = x_data1*w1;             % size is nobs x nwidth
-layer_1_NL = log( exp(layer_1)+1 );  % size is nobs x nwidth
+layer_1_NL = 1./(1+exp(-layer_1)); %log( exp(layer_1)+1 );  % size is nobs x nwidth
 y_fitted   = layer_1_NL*w2 + b2;     % size is nobs x 1
 
 y_error    = y_fitted-y_data;        % size is nobs x 1
@@ -28,7 +28,7 @@ w2_grad      = y_error_wide.*layer_1_NL;    % size is nobs x nwidth
 b2_grad      = y_error;                     % size is nobs x 1
 
 
-layer_1_grad = 1./(1+exp(-layer_1));        % size is nobs x nwidth
+layer_1_grad = exp(-layer_1)./((1+exp(-layer_1)).^2); %1./(1+exp(-layer_1));        % size is nobs x nwidth
 
 w1_grad=zeros(nobs,xwidth,nwidth);
 for it0 = 1:nobs

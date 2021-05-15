@@ -28,7 +28,7 @@ w2_grad      = y_error_wide.*layer_1_NL;    % size is nobs x nwidth
 b2_grad      = y_error;                     % size is nobs x 1
 
 
-layer_1_grad = exp(-layer_1)./((1+exp(-layer_1)).^2);        % size is nobs x nwidth
+layer_1_grad = 1./(1+exp(-layer_1));        % size is nobs x nwidth
 
 w1_grad=zeros(nobs,xwidth,nwidth);
 for it0 = 1:nobs
